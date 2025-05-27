@@ -15,8 +15,8 @@ const Footer = () => {
             </Link>
             <p className='mt-2 text-sm'>Powering Your World with the Best in Electronics.</p>
             <p className='mt-2 text-sm'>123 Electronics St, Style City, NY 10001</p>
-            <p className='text-sm'>Email: support@Zaptro.com</p>
-            <p className='text-sm'>Phone: (123) 456-7890</p>
+            <p className='text-sm'>Email: myfusionn.108@gmail.com</p>
+            <p className='text-sm'>Phone: 6353616391</p>
         </div>
         {/* customer service link */}
         <div className='mb-6 md:mb-0'>
@@ -55,7 +55,7 @@ const Footer = () => {
       </div>
       {/* bottom section */}
       <div className='mt-8 border-t border-gray-700 pt-6 text-center text-sm'>
-        <p>&copy; {new Date().getFullYear()} <span className='text-red-500'>Zaptro</span>. All rights reserved</p>
+        <p>&copy; {new Date().getFullYear()} <span className='text-red-500'>MY Fusion</span>. All rights reserved</p>
       </div>
     </footer>
   )

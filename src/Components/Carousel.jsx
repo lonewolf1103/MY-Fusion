@@ -16,7 +16,7 @@ const Home = () => {
           </p>
 
           <div className="text-2xl font-bold text-white">
-            ₹1,499 <span className="text-sm font-normal line-through text-gray-500 ml-3">₹1,999</span>
+            ₹499 <span className="text-sm font-normal line-through text-gray-500 ml-3">₹999</span>
           </div>
 
           <button className="mt-4 bg-white text-black font-semibold px-6 py-3 rounded-md hover:bg-gray-200 transition duration-300">

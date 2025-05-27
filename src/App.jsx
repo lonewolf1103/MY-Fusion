@@ -2,12 +2,13 @@ import React from 'react'
 import { useEffect, useState} from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './Pages/Home'
-import Products from './Pages/Products'
+import Products from './Pages/ProductPage'
 import About from './Pages/About'
 import Contact from './Pages/Contact'
 import Cart from './Pages/Cart'
 import Navbar from './Components/Navbar'
 import axios from 'axios'
+import Footer from './Components/Footer'
 
 const App = () => {
 
@@ -51,6 +52,7 @@ const App = () => {
         <Route path='/Contact' element={<Contact/>}></Route>
         <Route path='/cart' element={<Cart/>}></Route>
       </Routes>
+      <Footer/>
     </BrowserRouter>
   )
 }
