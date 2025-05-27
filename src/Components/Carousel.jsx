@@ -1,104 +1,43 @@
-import React, { useContext, useEffect } from 'react';
-import { DataContext } from '../Context/DataContext';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from 'react-slick';
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
+import React from 'react';
 
-const Carousel = () => {
-    const { data, fetchAllProducts } = useContext(DataContext);
+const Home = () => {
+  return (
+    <div className="bg-black text-white min-h-screen py-12 px-6 md:px-16 flex flex-col items-center justify-center">
+      <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        
+        {/* Left Section: Text + Price */}
+        <div className="space-y-6">
+          <h1 className="text-4xl md:text-5xl font-extrabold uppercase">
+            Moonlight Night Lamp
+          </h1>
 
-    useEffect(() => {
-        fetchAllProducts();
-    }, []);
+          <p className="text-gray-300 text-lg leading-relaxed">
+            Transform your nights with this elegant Moonlight Lamp, blending modern design and calming ambient light. Ideal for bedrooms, desks, or gifting.
+          </p>
 
-    const SampleNextArrow = (props) => {
-        const { className, style, onClick } = props;
-        return (
-            <div onClick={onClick} className={className} style={{ ...style, zIndex: 3 }}>
-                <AiOutlineArrowRight
-                    className="arrows"
-                    style={{
-                        display: 'block',
-                        borderRadius: '50px',
-                        background: '#f53347',
-                        color: 'white',
-                        position: 'absolute',
-                        padding: '8px',
-                        right: '25px',
-                        fontSize: '30px',
-                    }}
-                />
-            </div>
-        );
-    };
+          <div className="text-2xl font-bold text-white">
+            ₹1,499 <span className="text-sm font-normal line-through text-gray-500 ml-3">₹1,999</span>
+          </div>
 
-    const SamplePrevArrow = (props) => {
-        const { className, style, onClick } = props;
-        return (
-            <div onClick={onClick} className={className} style={{ ...style, zIndex: 3 }}>
-                <AiOutlineArrowLeft
-                    className="arrows"
-                    style={{
-                        display: 'block',
-                        borderRadius: '50px',
-                        background: '#f53347',
-                        color: 'white',
-                        position: 'absolute',
-                        padding: '8px',
-                        left: '25px',
-                        fontSize: '30px',
-                    }}
-                />
-            </div>
-        );
-    };
-
-    const settings = {
-        dots: false,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />,
-    };
-
-    return (
-        <div>
-            <Slider {...settings}>
-                {data?.slice(0, 7)?.map((item, index) => (
-                    <div key={index} className='bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e]'>
-                        <div className='flex gap-10 justify-center items-center h-[600px] px-4'>
-                            <div className='space-y-6 text-white'>
-                                <h3 className='font-semibold font-sans text-sm'>
-                                    Powering your world with the best in electronics
-                                </h3>
-                                <h1 className='text-3xl font-bold uppercase line-clamp-3 md:w-[500px]'>
-                                    {item.title}
-                                </h1>
-                                <p className='md:w-[500px] line-clamp-3 text-gray-400 pr-7'>
-                                    {item.description}
-                                </p>
-                                <button className='bg-gradient-to-r from-red-500 to-purple-500 px-3 py-2 rounded-md cursor-pointer mt-2'>
-                                    Shop Now
-                                </button>
-                            </div>
-                            <div>
-                                <img
-                                    src={item.image}
-                                    alt={item.title}
-                                    className='rounded-full w-[550px] hover:scale-105 transition-all shadow-2xl shadow-red-400'
-                                />
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </Slider>
+          <button className="mt-4 bg-white text-black font-semibold px-6 py-3 rounded-md hover:bg-gray-200 transition duration-300">
+            Buy Now
+          </button>
         </div>
-    );
+
+        {/* Right Section: Video */}
+        <div className="w-full flex justify-center">
+          <video
+            src="public\videos\WhatsApp Video 2025-05-26 at 23.05.31.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="rounded-xl w-full max-w-md shadow-xl hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default Carousel;
+export default Home;

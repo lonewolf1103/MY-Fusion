@@ -1,0 +1,336 @@
+// import React from 'react'
+// import { useState } from 'react';
+// import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
+// import { MapPin } from 'lucide-react'
+// import { BiCaretDown } from 'react-icons/bi';
+// import { CgClose } from 'react-icons/cg';
+// import { IoCarOutline, IoCartOutline } from 'react-icons/io5';
+// import { Link, NavLink } from 'react-router-dom'
+
+// const Navbar = ({location,getLocation,openDropdown,setOpenDropdown}) => {
+
+  
+//   const toggleDropdown = ()=>{
+//     setOpenDropdown(!openDropdown)
+//   };
+ 
+//   return (
+//     <div className='bg-black py-3 shadow-2xl'>
+//       <div className='max-w-6xl mx-auto flex justify-between items-center'>
+//         {/* {logo section} */}
+//         <div className='flex gap-7 items-center'>
+//           <Link to={'/'}><h1 className='font-bold text-3xl text-white'> <span className='text-purple-400'>MY</span> Fusion</h1></Link>
+
+//           <div className='flex gap-1 cursor-pointer text-white items-center'>
+//             <MapPin className='text-purple-400' />
+//             <span className='font-semibold'>{location ? <div className='-space-y-2'>
+//               <p>{location.county}</p>
+//               <p>{location.state}</p>
+//             </div> : "Add Your Address"}</span>
+//             <BiCaretDown onClick={toggleDropdown} />
+//           </div>
+//           {
+//             openDropdown?<div className='w-[250] h-max shadow-2xl z-50 bg-white fixed top-16 left-60 border-2 p-5 border-gray-100 rounded-md'>
+//             <h1 className='flex justify-between font-semibold mb-4 text-xl'>Change Location <span className='cursor-pointer'><CgClose onClick={toggleDropdown}/></span></h1>
+//             <button onClick={getLocation} className='bg-purple-500 text-white px-3 py-1 rounded-md cursor-pointer hover:bg-purple-400'>Detect My Location</button>
+//             </div> : null
+//           }
+//         </div>
+//         {/* {menu section} */}
+//         <nav className='flex gap-7 items-center'>
+//           <ul className='flex gap-7 items-center text-xl font-semibold text-white'>
+//             <NavLink to={'/'} className={({ isActive }) => `${isActive ? 'border-b-3 transition-all border-purple-500' : 'text-white'} cursor-pointer`}><li>Home</li></NavLink>
+//             <NavLink to={'/products'} className={({ isActive }) => `${isActive ? 'border-b-3 transition-all border-purple-500' : 'text-white'} cursor-pointer`}><li>Products</li></NavLink>
+//             <NavLink to={'/about'} className={({ isActive }) => `${isActive ? 'border-b-3 transition-all border-purple-500' : 'text-white'} cursor-pointer`}><li>About</li></NavLink>
+//             <NavLink to={'contact'} className={({ isActive }) => `${isActive ? 'border-b-3 transition-all border-purple-500' : 'text-white'} cursor-pointer`}><li>Contact</li></NavLink>
+//           </ul>
+//           <Link to={'/cart'} className='relative'>
+//             <IoCartOutline className='h-7 w-7 bg-black text-white rounded-xl' />
+//             <span className='bg-purple-500 rounded-full absolute -top-3 -right-3 text-white px-1.5'>0</span>
+//           </Link>
+//           <div>
+//             <SignedOut>
+//               <SignInButton className="bg-purple-500 text-white px-3 py-1 rounded-md cursor-pointer font-semibold" />
+//             </SignedOut>
+//             <SignedIn>
+//               <UserButton />
+//             </SignedIn>
+//           </div>
+//         </nav>
+//       </div>
+//     </div>
+//   )
+// }
+
+// export default Navbar
+
+
+import React, { useState } from 'react';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
+import { BiMenu, BiX } from 'react-icons/bi';
+import { IoCartOutline } from 'react-icons/io5';
+import { Link, NavLink } from 'react-router-dom';
+import Carousel from './src/Components/Carousel';
+
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(prev => !prev);
+  };
+
+  return (
+    <div className='bg-black py-3 shadow-2xl relative'>
+      <div className='max-w-6xl mx-auto flex justify-between items-center px-4'>
+        {/* Logo */}
+        <Link to='/'><h1 className='font-bold text-3xl text-white'><span className='text-purple-400'>MY</span> Fusion</h1></Link>
+
+        {/* Dropdown menu for nav items */}
+        <div className='relative'>
+          <button onClick={toggleMenu} className='text-white text-2xl'>
+            {menuOpen ? <BiX /> : <BiMenu />}
+          </button>
+
+          {menuOpen && (
+            <ul className='absolute right-0 top-12 bg-white text-black shadow-2xl rounded-md w-40 z-50 flex flex-col'>
+              <NavLink to='/' onClick={toggleMenu} className='hover:bg-purple-100 px-4 py-2'>
+                <li>Home</li>
+              </NavLink>
+              <NavLink to='/products' onClick={toggleMenu} className='hover:bg-purple-100 px-4 py-2'>
+                <li>Products</li>
+              </NavLink>
+              <NavLink to='/about' onClick={toggleMenu} className='hover:bg-purple-100 px-4 py-2'>
+                <li>About</li>
+              </NavLink>
+              <NavLink to='/contact' onClick={toggleMenu} className='hover:bg-purple-100 px-4 py-2'>
+                <li>Contact</li>
+              </NavLink>
+            </ul>
+          )}
+        </div>
+
+        {/* Cart and Auth */}
+        <div className='flex items-center gap-5'>
+          <Link to='/cart' className='relative'>
+            <IoCartOutline className='h-7 w-7 text-white' />
+            <span className='bg-purple-500 rounded-full absolute -top-2 -right-2 text-white px-1.5 text-xs'>0</span>
+          </Link>
+          <SignedOut>
+            <SignInButton className="bg-purple-500 text-white px-3 py-1 rounded-md font-semibold" />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
+
+
+
+Carousel
+// // import React, { useContext, useEffect } from 'react';
+// // import { DataContext } from '../Context/DataContext';
+// // import "slick-carousel/slick/slick.css";
+// // import "slick-carousel/slick/slick-theme.css";
+// // import Slider from 'react-slick';
+// // import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
+
+// // const Carousel = () => {
+// //     const { data, fetchAllProducts } = useContext(DataContext);
+
+// //     useEffect(() => {
+// //         fetchAllProducts();
+// //     }, []);
+
+// //     const SampleNextArrow = (props) => {
+// //         const { className, style, onClick } = props;
+// //         return (
+// //             <div onClick={onClick} className={className} style={{ ...style, zIndex: 3 }}>
+// //                 <AiOutlineArrowRight
+// //                     className="arrows"
+// //                     style={{
+// //                         display: 'block',
+// //                         borderRadius: '50px',
+// //                         background: '#f53347',
+// //                         color: 'white',
+// //                         position: 'absolute',
+// //                         padding: '8px',
+// //                         right: '25px',
+// //                         fontSize: '30px',
+// //                     }}
+// //                 />
+// //             </div>
+// //         );
+// //     };
+
+// //     const SamplePrevArrow = (props) => {
+// //         const { className, style, onClick } = props;
+// //         return (
+// //             <div onClick={onClick} className={className} style={{ ...style, zIndex: 3 }}>
+// //                 <AiOutlineArrowLeft
+// //                     className="arrows"
+// //                     style={{
+// //                         display: 'block',
+// //                         borderRadius: '50px',
+// //                         background: '#f53347',
+// //                         color: 'white',
+// //                         position: 'absolute',
+// //                         padding: '8px',
+// //                         left: '25px',
+// //                         fontSize: '30px',
+// //                     }}
+// //                 />
+// //             </div>
+// //         );
+// //     };
+
+// //     const settings = {
+// //         dots: false,
+// //         autoplay: true,
+// //         autoplaySpeed: 2000,
+// //         infinite: true,
+// //         speed: 500,
+// //         slidesToShow: 1,
+// //         slidesToScroll: 1,
+// //         nextArrow: <SampleNextArrow />,
+// //         prevArrow: <SamplePrevArrow />,
+// //     };
+
+// //     return (
+// //         <div>
+// //             <Slider {...settings}>
+// //                 {data?.slice(0, 7)?.map((item, index) => (
+// //                     <div key={index} className='bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e]'>
+// //                         <div className='flex gap-10 justify-center items-center h-[600px] px-4'>
+// //                             <div className='space-y-6 text-white'>
+// //                                 <h3 className='font-semibold font-sans text-sm'>
+// //                                     Powering your world with the best in electronics
+// //                                 </h3>
+// //                                 <h1 className='text-3xl font-bold uppercase line-clamp-3 md:w-[500px]'>
+// //                                     {item.title}
+// //                                 </h1>
+// //                                 <p className='md:w-[500px] line-clamp-3 text-gray-400 pr-7'>
+// //                                     {item.description}
+// //                                 </p>
+// //                                 <button className='bg-gradient-to-r from-red-500 to-purple-500 px-3 py-2 rounded-md cursor-pointer mt-2'>
+// //                                     Shop Now
+// //                                 </button>
+// //                             </div>
+// //                             <div>
+// //                                 <video
+// //                                     src='E:\MY Fusion\public\videos\WhatsApp Video 2025-05-26 at 23.05.31.mp4'
+// //                                     className='rounded-full w-[550px] hover:scale-105 transition-all shadow-2xl shadow-red-400'
+// //                                     autoPlay
+// //                                     loop
+// //                                     muted
+// //                                     playsInline
+// //                                 />
+// //                             </div>
+// //                         </div>
+// //                     </div>
+// //                 ))}
+// //             </Slider>
+// //         </div>
+// //     );
+// // };
+
+// // export default Carousel;
+
+
+// import React from 'react';
+// import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
+// import Slider from 'react-slick';
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+
+// const Carousel = () => {
+//     const SampleNextArrow = (props) => {
+//         const { className, style, onClick } = props;
+//         return (
+//             <div onClick={onClick} className={className} style={{ ...style, zIndex: 3 }}>
+//                 <AiOutlineArrowRight
+//                     style={{
+//                         display: 'block',
+//                         borderRadius: '50px',
+//                         background: '#f53347',
+//                         color: 'white',
+//                         position: 'absolute',
+//                         padding: '8px',
+//                         right: '25px',
+//                         fontSize: '30px',
+//                     }}
+//                 />
+//             </div>
+//         );
+//     };
+
+//     const SamplePrevArrow = (props) => {
+//         const { className, style, onClick } = props;
+//         return (
+//             <div onClick={onClick} className={className} style={{ ...style, zIndex: 3 }}>
+//                 <AiOutlineArrowLeft
+//                     style={{
+//                         display: 'block',
+//                         borderRadius: '50px',
+//                         background: '#f53347',
+//                         color: 'white',
+//                         position: 'absolute',
+//                         padding: '8px',
+//                         left: '25px',
+//                         fontSize: '30px',
+//                     }}
+//                 />
+//             </div>
+//         );
+//     };
+
+//     const settings = {
+//         dots: false,
+//         arrows: false, // hide arrows since there's only one slide
+//         infinite: false,
+//         speed: 500,
+//         slidesToShow: 1,
+//         slidesToScroll: 1,
+//     };
+
+//     return (
+//         <div>
+//             <Slider {...settings}>
+//                 <div className='bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e]'>
+//                     <div className='flex gap-10 justify-center items-center h-[600px] px-4'>
+//                         <div className='space-y-6 text-white'>
+//                             <h3 className='font-semibold font-sans text-sm'>
+//                                 Powering your world with the best in electronics
+//                             </h3>
+//                             <h1 className='text-3xl font-bold uppercase md:w-[500px]'>
+//                                 My Custom Video Clip
+//                             </h1>
+//                             <p className='md:w-[500px] text-gray-400 pr-7'>
+//                                 This is a custom video showcasing our latest product innovation and design.
+//                             </p>
+//                             <button className='bg-gradient-to-r from-red-500 to-purple-500 px-3 py-2 rounded-md cursor-pointer mt-2'>
+//                                 Shop Now
+//                             </button>
+//                         </div>
+//                         <div className='flex justify-center items-center w-full overflow-hidden px-4'>
+//                             <video
+//                                 src="public\videos\WhatsApp Video 2025-05-26 at 23.05.31.mp4" // Use a relative path from /public
+//                                 className='rounded-full w-[550px] hover:scale-105 transition-all shadow-2xl shadow-red-400'
+//                                 autoPlay
+//                                 loop
+//                                 muted
+//                                 playsInline
+//                             />
+//                         </div>
+//                     </div>
+//                 </div>
+//             </Slider>
+//         </div>
+//     );
+// };
+
+// export default Carousel;
