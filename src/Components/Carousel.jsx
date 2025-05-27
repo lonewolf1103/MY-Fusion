@@ -32,7 +32,7 @@ const Home = () => {
             loop
             muted
             playsInline
-            className="rounded-xl w-full max-w-md shadow-xl hover:scale-105 transition-transform duration-300"
+            className=" mt-5 rounded-xl w-full max-w-md shadow-xl hover:scale-105 transition-transform duration-300"
           />
 
         </div>
