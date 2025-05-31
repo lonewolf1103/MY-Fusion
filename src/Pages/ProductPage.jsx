@@ -1,34 +1,42 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useCart } from '../Context/CartContext';
 
 const ProductPage = () => {
   const images = [
     '/Pictures/WhatsApp Image 2025-05-26 at 23.09.53.jpeg',
-    '/Pictures/WhatsApp Image 2025-05-26 at 23.09.54.jpeg',
     '/Pictures/WhatsApp Image 2025-05-26 at 23.09.55.jpeg',
     '/Pictures/WhatsApp Image 2025-05-26 at 23.10.20.jpeg',
   ];
 
-  const [quantity, setQuantity] = useState(1)
-  const [cart, setCart] = useState(null)
+  const {addToCart} = useCart();
+  const [quantity, setQuantity] = useState(()=>{
+    const stored = localStorage.getItem('lamp-qty')
+    return stored ? parseInt(stored) : 1
+  });
 
-  const handleAddToCart =()=>{
-    const item ={
+  useEffect(() => {
+   localStorage.setItem('lamp-qty', quantity);
+  }, [quantity])
+  
+
+  // const [cart, setCart] = useState(null);
+
+   const handleAddToCart = () => {
+    const item = {
       name: 'Moonlight Night Lamp',
       price: 499,
       quantity,
-      total:499*quantity
+      total: 499 * quantity,
+      image: images[0] // first image for cart display
     };
-
-    setCart(item)
-    alert(`Added ${quantity} item(s) to cart!`)
+    addToCart(item);
+    alert(`Added ${quantity} item(s) to cart!`);
   };
-
-  const increaseQty = ()=> setQuantity(prev => prev + 1);
-  const decreaseQty = ()=> setQuantity(prev => (prev > 1 ? prev - 1 : 1));
+  const increaseQty = () => setQuantity((prev) => prev + 1);
+  const decreaseQty = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
   const settings = {
     dots: true,
@@ -43,7 +51,7 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="bg-black text-white min-h-screen py-12 px-4 md:px-16">
+    <div className="bg-black text-white min-h-screen py-12 px-4 md:px-16 mt-14">
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         {/* Slider Section */}
         <div>
@@ -66,17 +74,19 @@ const ProductPage = () => {
             Moonlight Night Lamp
           </h2>
 
-          <p className="text-gray-300 text-lg leading-relaxed">
-            Add a celestial charm to your room with this enchanting moonlight lamp. Made from eco-friendly materials and powered by LED, it's perfect for night ambiance or gifting.
-          </p>
+          {/* New Description */}
+          <div className="text-gray-300 text-lg leading-relaxed space-y-2">
+            <p>🌈 <strong>7 Color Modes</strong> – Warm White, Cool White, Red, Blue, Green, Yellow, and Pink</p>
+            <p>🔋 <strong>USB Rechargeable</strong> – Up to 10 hours of light on a single charge</p>
+            <p>🖐️ <strong>Touch Sensor</strong> – Tap to change color or turn ON/OFF</p>
+            <p>🌕 <strong>Realistic 3D Moon Surface</strong> – Printed with advanced 3D technology</p>
+            <p>🪵 <strong>Elegant Wooden Stand</strong> – Adds a stylish touch to your room décor</p>
+          </div>
 
+          {/* Pricing Section (unchanged) */}
           <div>
-            <span className="text-2xl font-bold text-white">
-              ₹499
-            </span>
-            <span className="text-sm font-normal line-through text-gray-500 ml-3">
-              ₹999
-            </span>
+            <span className="text-2xl font-bold text-white">₹499</span>
+            <span className="text-sm font-normal line-through text-gray-500 ml-3">₹999</span>
           </div>
 
           {/* Quantity Selector */}
@@ -104,12 +114,7 @@ const ProductPage = () => {
             Add to Cart
           </button>
 
-          {/* Optional: Show cart info */}
-          {cart && (
-            <div className="mt-4 text-green-400">
-              ✅ {cart.quantity} item(s) added to cart – ₹{cart.total}
-            </div>
-          )}
+          
         </div>
       </div>
     </div>

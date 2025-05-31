@@ -5,10 +5,12 @@ import Home from './Pages/Home'
 import Products from './Pages/ProductPage'
 import About from './Pages/About'
 import Contact from './Pages/Contact'
-import Cart from './Pages/Cart'
+import CartPage from './Pages/CartPage'
 import Navbar from './Components/Navbar'
 import axios from 'axios'
 import Footer from './Components/Footer'
+import CheckoutPage from './Pages/CheckoutPage'
+import ThankYou from './Pages/ThanksPage'
 
 const App = () => {
 
@@ -49,8 +51,11 @@ const App = () => {
         <Route path='/' element={<Home/>}></Route>
         <Route path='/products' element={<Products/>}></Route>
         <Route path='/about' element={<About/>}></Route>
-        <Route path='/Contact' element={<Contact/>}></Route>
-        <Route path='/cart' element={<Cart/>}></Route>
+        {/* <Route path='/Contact' element={<Contact/>}></Route> */}
+        <Route path='/cartpage' element={<CartPage/>}></Route>\
+        <Route path='/checkout' element={<CheckoutPage/>}></Route>
+        <Route path='/thank-you' element={<ThankYou/>}></Route>
+
       </Routes>
       <Footer/>
     </BrowserRouter>
