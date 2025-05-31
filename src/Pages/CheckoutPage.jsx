@@ -163,7 +163,7 @@ const CheckoutPage = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://instagram.com/your_profile" target="_blank" rel="noopener noreferrer" className="text-pink-600 underline">
+                                    <a href="https://www.instagram.com/myfusion09?igsh=MTVhMDhudWc5ZzV3eg==" target="_blank" rel="noopener noreferrer" className="text-pink-600 underline">
                                         Instagram
                                     </a>
                                 </li>
