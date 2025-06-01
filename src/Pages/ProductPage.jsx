@@ -34,6 +34,8 @@ const ProductPage = () => {
     };
     addToCart(item);
     alert(`Added ${quantity} item(s) to cart!`);
+    setQuantity(1);
+    localStorage.removeItem('lamp-qty')
   };
   const increaseQty = () => setQuantity((prev) => prev + 1);
   const decreaseQty = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
